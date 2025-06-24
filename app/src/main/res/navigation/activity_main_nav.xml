@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_nav"
+    app:startDestination="@id/mainScreen">
+
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="com.berkayuludogan.e_commerceapplication.ui.screens.MainScreen"
+        android:label="main_screen"
+        tools:layout="@layout/main_screen" />
+    <fragment
+        android:id="@+id/productDetailsScreen"
+        android:name="com.berkayuludogan.e_commerceapplication.ui.screens.ProductDetailsScreen"
+        android:label="product_details_screen"
+        tools:layout="@layout/product_details_screen" />
+    <fragment
+        android:id="@+id/myCartScreen"
+        android:name="com.berkayuludogan.e_commerceapplication.ui.screens.MyCartScreen"
+        android:label="my_cart_screen"
+        tools:layout="@layout/my_cart_screen" />
+</navigation>
