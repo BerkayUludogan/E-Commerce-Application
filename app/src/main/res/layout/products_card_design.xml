@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/backgroundColor"
+        android:paddingBottom="5dp"
+        app:cardBackgroundColor="@color/secondColor"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +29,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageViewProd"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -41,10 +43,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
+                android:fontFamily="@font/metrophobic"
                 android:text="Apple"
                 android:textAlignment="viewStart"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProd" />
 
             <TextView
                 android:id="@+id/nameText"
@@ -53,6 +57,8 @@
                 android:layout_marginStart="16dp"
                 android:text="Bilgisayar "
                 android:textAlignment="viewStart"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/brandText" />
 
@@ -61,10 +67,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/metrophobic"
                 android:text="93000 TL"
                 android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+            <ImageView
+                android:id="@+id/imageViewFavorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/circle_background"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:elevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/heart_filled" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

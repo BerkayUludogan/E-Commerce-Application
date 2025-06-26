@@ -2,6 +2,7 @@ package com.berkayuludogan.e_commerceapplication.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.berkayuludogan.e_commerceapplication.R
@@ -27,15 +28,12 @@ class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
     override fun onBindViewHolder(holder: ProductsCardDesignHolder, position: Int) {
         val product = productsList[position]
         val design = holder.binding
-        /*
-         val url = "http://kasimadalan.pe.hu/toDos/images/${toDo.image}"
-        Glide.with(mContext).load(url).override(64, 64).into(design.imageViewToDo)
-         */
+
         val imageUrl = "${ApiPaths.BASE_URL}/${ApiPaths.IMAGES}/${product.image}"
         design.nameText.text = product.name
         design.brandText.text = product.brand
-        design.priceText.text = product.price.toString()
-        Glide.with(mContext).load(imageUrl).override(512,512).into(design.imageView2)
+        design.priceText.text = "${product.price} TL"
+        Glide.with(mContext).load(imageUrl).override(512,512).into(design.imageViewProd)
     }
 
     override fun getItemCount(): Int {
