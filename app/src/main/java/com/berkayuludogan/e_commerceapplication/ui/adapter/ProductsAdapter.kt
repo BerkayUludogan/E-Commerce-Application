@@ -1,0 +1,45 @@
+package com.berkayuludogan.e_commerceapplication.ui.adapter
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.berkayuludogan.e_commerceapplication.R
+import com.berkayuludogan.e_commerceapplication.core.ApiPaths
+import com.berkayuludogan.e_commerceapplication.core.Constants
+import com.berkayuludogan.e_commerceapplication.data.entity.Products
+import com.berkayuludogan.e_commerceapplication.databinding.ProductsCardDesignBinding
+import com.bumptech.glide.Glide
+
+class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
+    RecyclerView.Adapter<ProductsAdapter.ProductsCardDesignHolder>() {
+
+    inner class ProductsCardDesignHolder(val binding: ProductsCardDesignBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsCardDesignHolder {
+        val binding =
+            ProductsCardDesignBinding.inflate(LayoutInflater.from(mContext), parent, false)
+        return ProductsCardDesignHolder(binding)
+    }
+
+
+    override fun onBindViewHolder(holder: ProductsCardDesignHolder, position: Int) {
+        val product = productsList[position]
+        val design = holder.binding
+        /*
+         val url = "http://kasimadalan.pe.hu/toDos/images/${toDo.image}"
+        Glide.with(mContext).load(url).override(64, 64).into(design.imageViewToDo)
+         */
+        val imageUrl = "${ApiPaths.BASE_URL}/${ApiPaths.IMAGES}/${product.image}"
+        design.nameText.text = product.name
+        design.brandText.text = product.brand
+        design.priceText.text = product.price.toString()
+        Glide.with(mContext).load(imageUrl).override(512,512).into(design.imageView2)
+    }
+
+    override fun getItemCount(): Int {
+        return productsList.size
+    }
+
+}
