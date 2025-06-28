@@ -9,12 +9,23 @@
         android:id="@+id/mainScreen"
         android:name="com.berkayuludogan.e_commerceapplication.ui.screens.MainScreen"
         android:label="main_screen"
-        tools:layout="@layout/main_screen" />
+        tools:layout="@layout/main_screen" >
+        <action
+            android:id="@+id/toProductDetailsScreen"
+            app:destination="@id/productDetailsScreen" />
+        <action
+            android:id="@+id/toMyCartScreen"
+            app:destination="@id/myCartScreen" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailsScreen"
         android:name="com.berkayuludogan.e_commerceapplication.ui.screens.ProductDetailsScreen"
         android:label="product_details_screen"
-        tools:layout="@layout/product_details_screen" />
+        tools:layout="@layout/product_details_screen" >
+        <argument
+            android:name="product"
+            app:argType="com.berkayuludogan.e_commerceapplication.data.entity.Products" />
+    </fragment>
     <fragment
         android:id="@+id/myCartScreen"
         android:name="com.berkayuludogan.e_commerceapplication.ui.screens.MyCartScreen"

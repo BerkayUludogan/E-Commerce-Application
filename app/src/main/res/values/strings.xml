@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">E-Commerce Application</string>
+    <string name="app_name">TeknoModa</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="projectDetailAddCart">Add to cart</string>
+    <string name="mainScreenSearch">Search</string>
+    <string name="mainScreenLocation">Location</string>
+    <string name="mainScreenPleaseL">Please l...</string>
 </resources>

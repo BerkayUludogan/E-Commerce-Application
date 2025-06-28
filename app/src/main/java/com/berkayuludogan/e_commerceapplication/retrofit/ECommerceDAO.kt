@@ -1,6 +1,6 @@
 package com.berkayuludogan.e_commerceapplication.retrofit
 
-import com.berkayuludogan.e_commerceapplication.core.ApiPaths
+import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
 import com.berkayuludogan.e_commerceapplication.data.entity.AddToCartRequest
 import com.berkayuludogan.e_commerceapplication.data.entity.CRUDResponse
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsResponse

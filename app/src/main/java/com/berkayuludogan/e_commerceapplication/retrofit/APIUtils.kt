@@ -1,6 +1,6 @@
 package com.berkayuludogan.e_commerceapplication.retrofit
 
-import com.berkayuludogan.e_commerceapplication.core.ApiPaths
+import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
 
 class APIUtils {
     companion object {

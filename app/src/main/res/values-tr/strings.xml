@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">E-Ticaret Uygulaması</string>
+    <string name="app_name">TeknoMode</string>
+    <string name="projectDetailAddCart">Sepete ekle</string>
+    <string name="mainScreenSearch">Ara</string>
+    <string name="mainScreenLocation">Konum</string>
+    <string name="mainScreenPleaseL">Lütfen k...</string>
+
 </resources>

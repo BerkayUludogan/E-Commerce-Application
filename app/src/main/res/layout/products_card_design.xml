@@ -57,7 +57,7 @@
                 android:layout_marginStart="16dp"
                 android:text="Bilgisayar "
                 android:textAlignment="viewStart"
-                android:textSize="24sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/brandText" />
@@ -84,12 +84,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_background"
+                android:elevation="6dp"
                 android:padding="8dp"
                 android:scaleType="centerInside"
-                android:elevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/heart_filled" />
+                app:srcCompat="@drawable/heart_border" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

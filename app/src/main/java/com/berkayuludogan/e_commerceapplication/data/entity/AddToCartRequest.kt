@@ -1,6 +1,6 @@
 package com.berkayuludogan.e_commerceapplication.data.entity
 
-import com.berkayuludogan.e_commerceapplication.core.Constants
+import com.berkayuludogan.e_commerceapplication.core.constants.Constants
 import com.google.gson.annotations.SerializedName
 
 data class AddToCartRequest(

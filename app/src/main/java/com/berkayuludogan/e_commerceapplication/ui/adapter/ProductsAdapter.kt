@@ -2,14 +2,14 @@ package com.berkayuludogan.e_commerceapplication.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.berkayuludogan.e_commerceapplication.R
-import com.berkayuludogan.e_commerceapplication.core.ApiPaths
-import com.berkayuludogan.e_commerceapplication.core.Constants
+import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
+import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
 import com.berkayuludogan.e_commerceapplication.data.entity.Products
 import com.berkayuludogan.e_commerceapplication.databinding.ProductsCardDesignBinding
+import com.berkayuludogan.e_commerceapplication.ui.screens.MainScreenDirections
 import com.bumptech.glide.Glide
 
 class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
@@ -29,11 +29,19 @@ class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
         val product = productsList[position]
         val design = holder.binding
 
-        val imageUrl = "${ApiPaths.BASE_URL}/${ApiPaths.IMAGES}/${product.image}"
+        val imageUrl = ApiPaths.getImageUrl(product.image)
+
         design.nameText.text = product.name
         design.brandText.text = product.brand
         design.priceText.text = "${product.price} TL"
-        Glide.with(mContext).load(imageUrl).override(512,512).into(design.imageViewProd)
+        design.imageViewProd.loadImage(imageUrl)
+
+        design.productsCardView.setOnClickListener {
+            val details = MainScreenDirections.toProductDetailsScreen(product = product)
+            it.findNavController().navigate(details)
+        }
+
+
     }
 
     override fun getItemCount(): Int {
