@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.berkayuludogan.e_commerceapplication.R
@@ -34,10 +35,10 @@ class MainScreen : Fragment() {
             val productsAdapter = ProductsAdapter(requireContext(), it)
             binding.recyclerViewProducts.adapter = productsAdapter
         }
-
-
         binding.recyclerViewProducts.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+
         return binding.root
     }
 

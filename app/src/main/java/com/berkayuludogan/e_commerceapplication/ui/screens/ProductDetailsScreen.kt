@@ -11,6 +11,7 @@ import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
 import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
 import com.berkayuludogan.e_commerceapplication.databinding.ProductDetailsScreenBinding
+import com.berkayuludogan.e_commerceapplication.ui.main.MainActivity
 import com.berkayuludogan.e_commerceapplication.ui.viewmodel.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,6 +53,11 @@ class ProductDetailsScreen : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.bottomNavigationBar?.showBottomBar()
     }
 
 
