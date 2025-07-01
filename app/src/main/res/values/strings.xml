@@ -5,4 +5,6 @@
     <string name="mainScreenSearch">Search</string>
     <string name="mainScreenLocation">Location</string>
     <string name="mainScreenPleaseL">Please l...</string>
+    <string name="myCartScreenMyCart">My Cart</string>
+    <string name="myCartScreenPrice">Price:</string>
 </resources>

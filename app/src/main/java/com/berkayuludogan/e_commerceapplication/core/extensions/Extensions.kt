@@ -9,3 +9,8 @@ fun ImageView.loadImage(url: String, width: Int = 512, height: Int = 512) {
         .override(width, height)
         .into(this)
 }
+fun Int.toCurrency(): String {
+    return "%,d ₺".format(this).replace(',', '.')
+}
+
+

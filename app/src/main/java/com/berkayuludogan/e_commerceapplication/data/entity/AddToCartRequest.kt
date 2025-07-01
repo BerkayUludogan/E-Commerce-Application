@@ -9,6 +9,6 @@ data class AddToCartRequest(
     @SerializedName("kategori") val category: String,
     @SerializedName("fiyat") val price: Int,
     @SerializedName("marka") val brand: String,
-    @SerializedName("siparisAdeti") val orderQuantity: Int,
+    @SerializedName("siparisAdeti") val orderQuantity: Int = 1,
     @SerializedName("kullaniciAdi") val userName: String = Constants.USER_NAME,
 )

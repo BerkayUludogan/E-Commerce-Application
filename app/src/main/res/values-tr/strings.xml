@@ -3,6 +3,7 @@
     <string name="projectDetailAddCart">Sepete ekle</string>
     <string name="mainScreenSearch">Ara</string>
     <string name="mainScreenLocation">Konum</string>
-    <string name="mainScreenPleaseL">Lütfen k...</string>
-
+    <string name="mainScreenPleaseL">Lütfen k…</string>
+    <string name="myCartScreenMyCart">Sepetim</string>
+    <string name="myCartScreenPrice">Fiyat:</string>
 </resources>

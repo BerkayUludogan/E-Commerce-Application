@@ -38,9 +38,7 @@ class BottomNavigationBar(
             when (destination.id) {
                 R.id.mainScreen -> {
                     updateBottomBarIcons(R.id.nav_home)
-
                 }
-
                 R.id.myCartScreen -> {
                     updateBottomBarIcons(R.id.nav_my_cart)
 
