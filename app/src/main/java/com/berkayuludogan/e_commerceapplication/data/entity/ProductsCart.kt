@@ -17,7 +17,7 @@ data class ProductsCart(
     @SerializedName(value = "marka")
     val brand: String,
     @SerializedName(value = "siparisAdeti")
-    val orderQuantity: Int,
+    var orderQuantity: Int,
     @SerializedName(value = "kullaniciAdi")
     val userName: String = Constants.USER_NAME,
 )

@@ -1,17 +1,25 @@
 package com.berkayuludogan.e_commerceapplication.ui.viewmodel
 
+import android.content.Context
+import android.provider.Settings.Global.getString
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.Constants
 import com.berkayuludogan.e_commerceapplication.data.entity.AddToCartRequest
 import com.berkayuludogan.e_commerceapplication.data.entity.CRUDResponse
+import com.berkayuludogan.e_commerceapplication.data.entity.Products
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCart
 import com.berkayuludogan.e_commerceapplication.data.repository.ECommerceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.http.Body
 import javax.inject.Inject
@@ -20,11 +28,11 @@ import javax.inject.Inject
 class ProductDetailsViewModel @Inject constructor(
     private val eCommerceRepository: ECommerceRepository,
 ) : ViewModel() {
-    private val _cartItems = MutableLiveData<List<ProductsCart>>()
-    val cartItems: LiveData<List<ProductsCart>> = _cartItems
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
+    private var toast: Toast? = null
+    private var cartJob: Job? = null
 
     init {
         _isFavorite.value = false
@@ -53,7 +61,7 @@ class ProductDetailsViewModel @Inject constructor(
     fun loadCartItems() {
         viewModelScope.launch {
             try {
-                _cartItems.value = eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
+                eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
 
             } catch (e: Exception) {
                 Log.e("Load Cart Items Error", "${e.message}")
@@ -61,7 +69,7 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    fun deleteItemToCart(cartId: Int) {
+    suspend fun deleteItemToCart(cartId: Int) {
         viewModelScope.launch {
             try {
                 eCommerceRepository.deleteItemToCart(cartId)
@@ -72,8 +80,41 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
+    suspend fun addOrUpdateProductCart(productDetail: Products, context: Context) {
+        val freshCartItems = eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
+        val existsItems = freshCartItems.filter { it.name == productDetail.name }
+        val totalCount = existsItems.sumOf { it.orderQuantity } + 1
+        viewModelScope.launch(Dispatchers.Main) {
+            existsItems.forEach {
+                deleteItemToCart(it.cartId)
+                Log.e("Sepet Silme", "$totalCount")
+                delay(300)
+            }
+        }
+        loadCartItems()
+        addProductToCart(
+            name = productDetail.name,
+            image = productDetail.image,
+            category = productDetail.category,
+            price = productDetail.price,
+            brand = productDetail.brand,
+            orderQuantity = totalCount
+        )
+        toast?.cancel()  
+        toast = Toast.makeText(context, context.getString(R.string.toastAddProduct), Toast.LENGTH_SHORT)
+        toast?.show()
+    }
+    fun launchAddOrUpdate(productDetail: Products, context: Context) {
+        cartJob?.cancel()
+        cartJob = viewModelScope.launch {
+            addOrUpdateProductCart(productDetail, context)
+        }
+    }
 
 }
+
+
+
 
 
 

@@ -14,6 +14,7 @@ import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
 import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
 import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
+import com.berkayuludogan.e_commerceapplication.data.entity.Products
 import com.berkayuludogan.e_commerceapplication.databinding.ProductDetailsScreenBinding
 import com.berkayuludogan.e_commerceapplication.ui.main.MainActivity
 import com.berkayuludogan.e_commerceapplication.ui.viewmodel.ProductDetailsViewModel
@@ -56,33 +57,15 @@ class ProductDetailsScreen : Fragment() {
         }
 
         binding.addCartButton.setOnClickListener {
-            val currentCart = viewModel.cartItems.value ?: emptyList()
-            val existsItems = currentCart.filter { it.name == productDetail.name }
-            val totalCount = existsItems.sumOf { it.orderQuantity } + 1
-            lifecycleScope.launch {
-                existsItems.forEach {
-                    val result = viewModel.deleteItemToCart(it.cartId)
-                    Log.e("SepetSilme", "$totalCount")
+            binding.addCartButton.isEnabled = false
+            viewModel.launchAddOrUpdate(productDetail, requireContext())
+            binding.addCartButton.isEnabled = true
 
-                }
-                viewModel.loadCartItems()
-                delay(300)
-                viewModel.addProductToCart(
-                    name = productDetail.name,
-                    image = productDetail.image,
-                    category = productDetail.category,
-                    price = productDetail.price,
-                    brand = productDetail.brand,
-                    orderQuantity = totalCount
-                )
-                viewModel.loadCartItems()
 
-            }
         }
-
-
         return binding.root
     }
+
 
     override fun onPause() {
         super.onPause()

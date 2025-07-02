@@ -90,10 +90,10 @@
 
             <ImageView
                 android:id="@+id/trashImage"
-                android:layout_width="42dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/trash" />
@@ -102,23 +102,12 @@
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/metrophobic"
                 android:text="5000 TL"
                 app:layout_constraintBottom_toTopOf="@+id/quantityLayout"
-                app:layout_constraintStart_toEndOf="@+id/priceText" />
-
-            <TextView
-                android:id="@+id/priceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/metrophobic"
-                app:layout_constraintBottom_toTopOf="@+id/quantityLayout"
-                app:layout_constraintStart_toEndOf="@+id/productImageView"
-                tools:text="@string/myCartScreenPrice" />
+                app:layout_constraintStart_toEndOf="@+id/productImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

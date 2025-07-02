@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
+import com.berkayuludogan.e_commerceapplication.core.myCartInterface.OnCartItemChangeListener
 import com.berkayuludogan.e_commerceapplication.databinding.MyCartScreenBinding
 import com.berkayuludogan.e_commerceapplication.ui.adapter.MyCartAdapter
 import com.berkayuludogan.e_commerceapplication.ui.viewmodel.MyCartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyCartScreen : Fragment() {
+class MyCartScreen : Fragment(), OnCartItemChangeListener {
     private lateinit var binding: MyCartScreenBinding
     private lateinit var viewModel: MyCartViewModel
+    private lateinit var myCartAdapter: MyCartAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tempViewModel: MyCartViewModel by viewModels()
@@ -30,13 +32,21 @@ class MyCartScreen : Fragment() {
         binding = MyCartScreenBinding.inflate(inflater, container, false)
 
         viewModel.productCartList.observe(viewLifecycleOwner) {
-            val myCartAdapter = MyCartAdapter(requireContext(), it, viewModel)
+            myCartAdapter = MyCartAdapter(requireContext(), it, viewModel, listener = this)
             binding.myCartRecyclerView.adapter = myCartAdapter
         }
-
         binding.myCartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        viewModel.totalPrice.observe(viewLifecycleOwner) { total ->
+            binding.totalPriceText.text = total.toCurrency()
+        }
+
         return binding.root
+    }
+
+    override fun onCartItemChanged() {
+        val currentList = myCartAdapter.getCartItems()
+        viewModel.updateCartItem(currentList)
     }
 
 }

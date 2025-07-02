@@ -23,6 +23,9 @@ class MyCartViewModel @Inject constructor(
     private val _productCartList = MutableLiveData<List<ProductsCart>>()
     val productCartList: LiveData<List<ProductsCart>> = _productCartList
 
+    private val _totalPrice = MutableLiveData<Int>()
+    val totalPrice: LiveData<Int> = _totalPrice
+
     init {
         fetchAllProducts(Constants.USER_NAME)
     }
@@ -31,9 +34,11 @@ class MyCartViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 _productCartList.value = eCommerceRepository.fetchAllCartItems(userName)
+                _totalPrice.value = calculateTotalPrice(_productCartList.value)
             } catch (e: Exception) {
                 Log.e("CartFetchError", "Gerçek hata: ${e.message}", e)
                 _productCartList.value = emptyList()
+                _totalPrice.value = 0
             }
         }
     }
@@ -48,4 +53,14 @@ class MyCartViewModel @Inject constructor(
             }
         }
     }
+
+    fun calculateTotalPrice(cartItems: List<ProductsCart>): Int {
+        return cartItems.sumOf { it.price * it.orderQuantity }
+    }
+
+    fun updateCartItem(cartItems: List<ProductsCart>) {
+        val total = cartItems.sumOf { it.price * it.orderQuantity }
+        _totalPrice.value = total
+    }
+
 }

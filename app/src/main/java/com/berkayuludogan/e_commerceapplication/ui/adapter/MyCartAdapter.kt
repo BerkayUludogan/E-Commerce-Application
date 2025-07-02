@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
-import com.berkayuludogan.e_commerceapplication.core.constants.Constants
 import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
 import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
+import com.berkayuludogan.e_commerceapplication.core.myCartInterface.OnCartItemChangeListener
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCart
 import com.berkayuludogan.e_commerceapplication.databinding.MyCartCardDesignBinding
 import com.berkayuludogan.e_commerceapplication.ui.viewmodel.MyCartViewModel
 
 class MyCartAdapter(
     private val mContext: Context,
-    private val myCartProductList: List<ProductsCart>,
+    private var myCartProductList: List<ProductsCart>,
     private val viewModel: MyCartViewModel,
+    private val listener: OnCartItemChangeListener,
 ) : RecyclerView.Adapter<MyCartAdapter.MyCartCardDesign>() {
+
     inner class MyCartCardDesign(var binding: MyCartCardDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -26,10 +28,11 @@ class MyCartAdapter(
     }
 
     override fun onBindViewHolder(holder: MyCartCardDesign, position: Int) {
-        val myCartProduct = myCartProductList[position]
+        var myCartProduct = myCartProductList[position]
         val design = holder.binding
 
         val imageUrl = "${ApiPaths.IMAGE_BASE_URL}/${myCartProduct.image}"
+
 
         design.productImageView.loadImage(imageUrl)
         design.productName.text = myCartProduct.name
@@ -48,6 +51,8 @@ class MyCartAdapter(
             val (newCount, newTotalPrice) = decrement(currentCount, myCartProduct.price)
             design.productCount.text = newCount.toString()
             design.totalPrice.text = newTotalPrice
+            myCartProductList[position].orderQuantity = newCount
+            notifyItemChanged()
         }
         design.btnPlus.setOnClickListener {
             val currentCount = design.productCount.text.toString().toIntOrNull() ?: 1
@@ -55,6 +60,10 @@ class MyCartAdapter(
             val (newCount, newTotalPrice) = increment(currentCount, myCartProduct.price)
             design.productCount.text = newCount.toString()
             design.totalPrice.text = newTotalPrice
+            myCartProductList[position].orderQuantity = newCount
+
+            notifyItemChanged()
+
         }
 
     }
@@ -81,6 +90,12 @@ class MyCartAdapter(
         val newTotalPrice = (productionPrice * newCount).toCurrency()
         return Pair(newCount, newTotalPrice)
     }
+
+    private fun notifyItemChanged() {
+        listener.onCartItemChanged()
+    }
+
+    fun getCartItems(): List<ProductsCart> = myCartProductList
 
 
 }

@@ -20,9 +20,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/activity_main_nav" />
+        app:navGraph="@navigation/activity_main_nav">
+
+    </androidx.fragment.app.FragmentContainerView>
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#D0CECE"
+        app:layout_constraintBottom_toTopOf="@id/customBottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <LinearLayout
+
         android:id="@+id/customBottomBar"
         android:layout_width="0dp"
         android:layout_height="70dp"

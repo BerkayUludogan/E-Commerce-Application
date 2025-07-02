@@ -6,4 +6,9 @@
     <string name="mainScreenPleaseL">Lütfen k…</string>
     <string name="myCartScreenMyCart">Sepetim</string>
     <string name="myCartScreenPrice">Fiyat:</string>
+    <string name="toastAddProduct">Ürün sepete eklendi!</string>
+    <string name="confirmCart">Sepeti Onayla</string>
+    <string name="total">Toplam</string>
+    <string name="shippingFree">Kargo Bedava</string>
+
 </resources>

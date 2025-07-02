@@ -16,8 +16,8 @@ class ECommerceRepository @Inject constructor(
 ) {
     suspend fun fetchAllProducts(): List<Products> = eCommerceDataSource.fetchAllProducts()
 
-    suspend fun fetchAllCartItems(userName: String): List<ProductsCart>? =
-        eCommerceDataSource.fetchAllCartItems(userName) ?: emptyList()
+    suspend fun fetchAllCartItems(userName: String): List<ProductsCart> =
+        eCommerceDataSource.fetchAllCartItems(userName)
 
     suspend fun addProductToCart(
         name: String,
