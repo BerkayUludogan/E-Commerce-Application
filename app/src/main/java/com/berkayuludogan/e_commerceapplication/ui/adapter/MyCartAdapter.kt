@@ -73,7 +73,7 @@ class MyCartAdapter(
         return myCartProductList.size
     }
 
-    private fun decrement(
+    fun decrement(
         currentCount: Int,
         productionPrice: Int,
     ): Pair<Int, String> {
@@ -82,7 +82,7 @@ class MyCartAdapter(
         return Pair(newCount, newTotalPrice)
     }
 
-    private fun increment(
+    fun increment(
         currentCount: Int,
         productionPrice: Int,
     ): Pair<Int, String> {

@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/metrophobic"
-                android:text="15000 TL"
+                android:text="0 ₺"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"

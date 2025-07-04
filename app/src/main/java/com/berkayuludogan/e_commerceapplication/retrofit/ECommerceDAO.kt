@@ -1,14 +1,10 @@
 package com.berkayuludogan.e_commerceapplication.retrofit
 
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
-import com.berkayuludogan.e_commerceapplication.data.entity.AddToCartRequest
 import com.berkayuludogan.e_commerceapplication.data.entity.CRUDResponse
-import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCart
-import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCartResponse
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded

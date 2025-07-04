@@ -17,13 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyCartScreen : Fragment(), OnCartItemChangeListener {
     private lateinit var binding: MyCartScreenBinding
-    private lateinit var viewModel: MyCartViewModel
+    private val viewModel: MyCartViewModel by viewModels()
     private lateinit var myCartAdapter: MyCartAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val tempViewModel: MyCartViewModel by viewModels()
-        viewModel = tempViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

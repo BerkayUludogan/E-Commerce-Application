@@ -1,45 +1,50 @@
 package com.berkayuludogan.e_commerceapplication.ui.viewmodel
 
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.Constants
-import com.berkayuludogan.e_commerceapplication.data.entity.AddToCartRequest
-import com.berkayuludogan.e_commerceapplication.data.entity.CRUDResponse
 import com.berkayuludogan.e_commerceapplication.data.entity.Products
-import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCart
 import com.berkayuludogan.e_commerceapplication.data.repository.ECommerceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.http.Body
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailsViewModel @Inject constructor(
     private val eCommerceRepository: ECommerceRepository,
-) : ViewModel() {
+) : FavoriteHandlerViewModel(eCommerceRepository) {
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
     private var toast: Toast? = null
     private var cartJob: Job? = null
+    val currentCount = MutableLiveData<Int>().apply { value = 1 }
+    val pricePerItem = MutableLiveData<Int>().apply { value = 0 }
 
-    init {
-        _isFavorite.value = false
-        loadCartItems()
+    val totalPrice: LiveData<Int> = MediatorLiveData<Int>().apply {
+        fun update() {
+            val count = currentCount.value ?: 1
+            val price = pricePerItem.value ?: 0
+            value = count * price
+        }
+        addSource(currentCount) { update() }
+        addSource(pricePerItem) { update() }
     }
 
-    fun addProductToCart(
+    init {
+        loadCartItems()
+        fetchAllFavorite()
+
+    }
+
+    private fun addProductToCart(
         name: String,
         image: String,
         category: String,
@@ -54,11 +59,7 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavorite() {
-        _isFavorite.value = _isFavorite.value != true
-    }
-
-    fun loadCartItems() {
+    private fun loadCartItems() {
         viewModelScope.launch {
             try {
                 eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
@@ -69,7 +70,7 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    suspend fun deleteItemToCart(cartId: Int) {
+    private fun deleteItemToCart(cartId: Int) {
         viewModelScope.launch {
             try {
                 eCommerceRepository.deleteItemToCart(cartId)
@@ -80,14 +81,19 @@ class ProductDetailsViewModel @Inject constructor(
         }
     }
 
-    suspend fun addOrUpdateProductCart(productDetail: Products, context: Context) {
+    private suspend fun addOrUpdateProductCart(
+        productDetail: Products,
+        context: Context,
+        newQuantity: Int,
+    ) {
         val freshCartItems = eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
         val existsItems = freshCartItems.filter { it.name == productDetail.name }
-        val totalCount = existsItems.sumOf { it.orderQuantity } + 1
+        val existingQuantity = existsItems.sumOf { it.orderQuantity }
+        val updatedQuantity = existingQuantity + newQuantity
+        println(newQuantity)
         viewModelScope.launch(Dispatchers.Main) {
             existsItems.forEach {
                 deleteItemToCart(it.cartId)
-                Log.e("Sepet Silme", "$totalCount")
                 delay(300)
             }
         }
@@ -98,16 +104,18 @@ class ProductDetailsViewModel @Inject constructor(
             category = productDetail.category,
             price = productDetail.price,
             brand = productDetail.brand,
-            orderQuantity = totalCount
+            orderQuantity = updatedQuantity
         )
-        toast?.cancel()  
-        toast = Toast.makeText(context, context.getString(R.string.toastAddProduct), Toast.LENGTH_SHORT)
+        toast?.cancel()
+        toast =
+            Toast.makeText(context, context.getString(R.string.toastAddProduct), Toast.LENGTH_SHORT)
         toast?.show()
     }
-    fun launchAddOrUpdate(productDetail: Products, context: Context) {
+
+    fun launchAddOrUpdate(productDetail: Products, context: Context, newQuantity: Int) {
         cartJob?.cancel()
         cartJob = viewModelScope.launch {
-            addOrUpdateProductCart(productDetail, context)
+            addOrUpdateProductCart(productDetail, context, newQuantity)
         }
     }
 

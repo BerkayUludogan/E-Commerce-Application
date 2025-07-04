@@ -1,18 +1,24 @@
 package com.berkayuludogan.e_commerceapplication.ui.adapter
-
+import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
+import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
-import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
-import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
+import com.berkayuludogan.e_commerceapplication.data.entity.Favorites
 import com.berkayuludogan.e_commerceapplication.data.entity.Products
 import com.berkayuludogan.e_commerceapplication.databinding.ProductsCardDesignBinding
 import com.berkayuludogan.e_commerceapplication.ui.screens.MainScreenDirections
 
-class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
+class ProductsAdapter(
+    private val mContext: Context,
+    private var productsList: List<Products>,
+    private var favoriteIds: List<Favorites>,
+    private val onFavoriteClicked: (Int) -> Unit,
+) :
     RecyclerView.Adapter<ProductsAdapter.ProductsCardDesignHolder>() {
 
     inner class ProductsCardDesignHolder(val binding: ProductsCardDesignBinding) :
@@ -30,6 +36,10 @@ class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
         val design = holder.binding
         val imageUrl = "${ApiPaths.IMAGE_BASE_URL}/${product.image}"
 
+        val isFavorite = favoriteIds.any { it.productId == product.id }
+        val iconRes = if (isFavorite) R.drawable.heart else R.drawable.heart_border
+
+        holder.binding.imageViewFavorite.setImageResource(iconRes)
         design.nameText.text = product.name
         design.brandText.text = product.brand
         design.priceText.text = product.price.toCurrency()
@@ -39,8 +49,16 @@ class ProductsAdapter(val mContext: Context, val productsList: List<Products>) :
             val details = MainScreenDirections.toProductDetailsScreen(product = product)
             it.findNavController().navigate(details)
         }
-    }
+        design.imageViewFavorite.setOnClickListener {
+            onFavoriteClicked(product.id)
+        }
 
+    }
+    fun updateData(newProducts: List<Products>, newFavorites: List<Favorites>) {
+        productsList = newProducts
+        favoriteIds = newFavorites
+        notifyDataSetChanged()
+    }
     override fun getItemCount(): Int {
         return productsList.size
     }
