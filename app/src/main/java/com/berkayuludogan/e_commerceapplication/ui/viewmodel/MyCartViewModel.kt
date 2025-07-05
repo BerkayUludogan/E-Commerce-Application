@@ -27,13 +27,13 @@ class MyCartViewModel @Inject constructor(
     val totalPrice: LiveData<Int> = _totalPrice
 
     init {
-        fetchAllProducts(Constants.USER_NAME)
+        fetchAllProducts()
     }
 
-    private fun fetchAllProducts(userName: String) {
+    private fun fetchAllProducts() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
-                _productCartList.value = eCommerceRepository.fetchAllCartItems(userName)
+                _productCartList.value = eCommerceRepository.fetchAllCartItems()
                 _totalPrice.value = calculateTotalPrice(_productCartList.value)
             } catch (e: Exception) {
                 Log.e("CartFetchError", "Gerçek hata: ${e.message}", e)
@@ -47,7 +47,7 @@ class MyCartViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 eCommerceRepository.deleteItemToCart(cartId)
-                fetchAllProducts(Constants.USER_NAME)
+                fetchAllProducts()
             } catch (e: Exception) {
                 Log.e("Error deleting item", "${e.message}")
             }

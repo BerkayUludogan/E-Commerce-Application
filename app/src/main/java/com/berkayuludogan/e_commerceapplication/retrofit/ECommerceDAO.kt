@@ -1,6 +1,7 @@
 package com.berkayuludogan.e_commerceapplication.retrofit
 
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
+import com.berkayuludogan.e_commerceapplication.core.constants.Constants
 import com.berkayuludogan.e_commerceapplication.data.entity.CRUDResponse
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsResponse
 import okhttp3.ResponseBody
@@ -17,7 +18,7 @@ interface ECommerceDAO {
 
     @POST(ApiPaths.FETCH_ALL_CART_ITEMS)
     @FormUrlEncoded
-    suspend fun fetchAllCartItems(@Field("kullaniciAdi") userName: String): Response<ResponseBody>
+    suspend fun fetchAllCartItems(@Field("kullaniciAdi") userName: String = Constants.USER_NAME): Response<ResponseBody>
 
     @POST(ApiPaths.ADD_TO_CART)
     @FormUrlEncoded
@@ -29,6 +30,6 @@ interface ECommerceDAO {
     @FormUrlEncoded
     suspend fun deleteItemToCart(
         @Field("sepetId") cartId: Int,
-        @Field("kullaniciAdi") userName: String,
+        @Field("kullaniciAdi") userName: String = Constants.USER_NAME,
     ): CRUDResponse
 }

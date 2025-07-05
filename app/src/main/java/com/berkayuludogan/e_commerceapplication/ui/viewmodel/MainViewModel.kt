@@ -38,9 +38,21 @@ class MainViewModel @Inject constructor(
         }
 
     }
+
     private fun fetchAllProducts() {
         viewModelScope.launch {
             _productsList.value = eCommerceRepository.fetchAllProducts()
+        }
+    }
+
+    fun search(searchText: String) {
+        viewModelScope.launch {
+            try {
+                val results = eCommerceRepository.search(searchText)
+                _productsList.value = results
+            } catch (e: Exception) {
+                Log.e("Arama yapılırken hata oluştu!!", "${e.message}")
+            }
         }
     }
 

@@ -16,17 +16,26 @@ import javax.inject.Inject
 import okhttp3.ResponseBody
 
 class ECommerceDataSource @Inject constructor(
-    val eCommerceDAO: ECommerceDAO,
-    val favoriteDAO: FavoriteDAO,
+    private val eCommerceDAO: ECommerceDAO,
+    private val favoriteDAO: FavoriteDAO,
 ) {
 
     suspend fun fetchAllProducts(): List<Products> = withContext(Dispatchers.IO) {
         return@withContext eCommerceDAO.fetchAllProducts().products
     }
 
-    suspend fun fetchAllCartItems(userName: String): List<ProductsCart> =
+    suspend fun search(searchText: String): List<Products> = withContext(Dispatchers.IO) {
+        val allProducts = eCommerceDAO.fetchAllProducts().products
+        return@withContext if (searchText.isBlank()) {
+            allProducts
+        } else {
+            allProducts.filter { it.name.contains(searchText, ignoreCase = true) }
+        }
+    }
+
+    suspend fun fetchAllCartItems(): List<ProductsCart> =
         withContext(Dispatchers.IO) {
-            val response = eCommerceDAO.fetchAllCartItems(userName)
+            val response = eCommerceDAO.fetchAllCartItems()
             if (!response.isSuccessful) return@withContext emptyList()
 
             val bodyString = response.body()?.string()
@@ -61,8 +70,7 @@ class ECommerceDataSource @Inject constructor(
 
     suspend fun deleteItemToCart(
         cartId: Int,
-        userName: String = Constants.USER_NAME,
-    ): CRUDResponse = eCommerceDAO.deleteItemToCart(cartId, userName)
+    ): CRUDResponse = eCommerceDAO.deleteItemToCart(cartId)
 
     suspend fun addToFavorite(productId: Int) {
         val favorite = Favorites(0, Constants.USER_NAME, productId)

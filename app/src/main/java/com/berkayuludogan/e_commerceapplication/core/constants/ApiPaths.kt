@@ -1,8 +1,5 @@
 package com.berkayuludogan.e_commerceapplication.core.constants
 
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-
 object ApiPaths {
     const val BASE_URL = "http://kasimadalan.pe.hu/"
     const val IMAGE_BASE_URL = "http://kasimadalan.pe.hu/urunler/resimler/"

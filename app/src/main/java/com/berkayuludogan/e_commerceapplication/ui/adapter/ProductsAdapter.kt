@@ -1,4 +1,5 @@
 package com.berkayuludogan.e_commerceapplication.ui.adapter
+import android.annotation.SuppressLint
 import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
 import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
 import android.content.Context
@@ -54,6 +55,8 @@ class ProductsAdapter(
         }
 
     }
+
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newProducts: List<Products>, newFavorites: List<Favorites>) {
         productsList = newProducts
         favoriteIds = newFavorites

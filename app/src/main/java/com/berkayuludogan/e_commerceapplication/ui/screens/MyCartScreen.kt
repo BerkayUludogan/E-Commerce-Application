@@ -29,6 +29,16 @@ class MyCartScreen : Fragment(), OnCartItemChangeListener {
         viewModel.productCartList.observe(viewLifecycleOwner) {
             myCartAdapter = MyCartAdapter(requireContext(), it, viewModel, listener = this)
             binding.myCartRecyclerView.adapter = myCartAdapter
+
+            if (it.isEmpty()) {
+                binding.myCartRecyclerView.visibility = View.GONE
+                binding.emptyTextView.visibility = View.VISIBLE
+            } else {
+                binding.myCartRecyclerView.visibility = View.VISIBLE
+                binding.emptyTextView.visibility = View.GONE
+            }
+
+
         }
         binding.myCartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 

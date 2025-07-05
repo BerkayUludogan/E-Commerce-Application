@@ -10,5 +10,7 @@
     <string name="confirmCart">Sepeti Onayla</string>
     <string name="total">Toplam</string>
     <string name="shippingFree">Kargo Bedava</string>
-
+    <string name="snackbar_discard_message">Çıkarmak istiyor musun "%1$s"?</string>
+    <string name="snackbar_delete_cart_item_message">Silmek istediğinize emin misiniz? "%1$s"?</string>
+    <string name="snackbar_yes">EVET</string>
 </resources>

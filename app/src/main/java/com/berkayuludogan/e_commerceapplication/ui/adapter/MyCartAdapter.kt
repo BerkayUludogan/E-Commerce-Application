@@ -3,14 +3,18 @@ package com.berkayuludogan.e_commerceapplication.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.berkayuludogan.e_commerceapplication.R
 import com.berkayuludogan.e_commerceapplication.core.constants.ApiPaths
 import com.berkayuludogan.e_commerceapplication.core.extensions.loadImage
+import com.berkayuludogan.e_commerceapplication.core.extensions.showActionSnackbar
 import com.berkayuludogan.e_commerceapplication.core.extensions.toCurrency
 import com.berkayuludogan.e_commerceapplication.core.myCartInterface.OnCartItemChangeListener
 import com.berkayuludogan.e_commerceapplication.data.entity.ProductsCart
 import com.berkayuludogan.e_commerceapplication.databinding.MyCartCardDesignBinding
 import com.berkayuludogan.e_commerceapplication.ui.viewmodel.MyCartViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class MyCartAdapter(
     private val mContext: Context,
@@ -40,10 +44,20 @@ class MyCartAdapter(
         design.productCount.text = myCartProduct.orderQuantity.toString()
         val initialCount = design.productCount.text.toString().toIntOrNull() ?: 1
         design.totalPrice.text = ((myCartProduct.price * initialCount)).toCurrency()
-
         design.trashImage.setOnClickListener {
-            viewModel.deleteItemToCart(myCartProduct.cartId)
+            it.showActionSnackbar(
+                message = mContext.getString(
+                    R.string.snackbar_delete_cart_item_message,
+                    myCartProduct.name
+                ),
+                actionText = mContext.getString(R.string.snackbar_yes),
+                actionColor = R.color.errorColor
+            )
+            {
+                viewModel.deleteItemToCart(myCartProduct.cartId)
+            }
         }
+
 
         design.btnMinus.setOnClickListener {
             val currentCount = design.productCount.text.toString().toIntOrNull() ?: 1

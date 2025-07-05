@@ -11,5 +11,9 @@
     <string name="confirmCart">Confirm Cart</string>
     <string name="total">Total</string>
     <string name="shippingFree">Shipping Free</string>
+    <string name="snackbar_discard_message">Do you want to discard "%1$s"?</string>
+    <string name="snackbar_delete_cart_item_message">Do you want to delete "%1$s"?</string>
+    <string name="snackbar_yes">YES</string>
+
 
 </resources>

@@ -62,7 +62,7 @@ class ProductDetailsViewModel @Inject constructor(
     private fun loadCartItems() {
         viewModelScope.launch {
             try {
-                eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
+                eCommerceRepository.fetchAllCartItems()
 
             } catch (e: Exception) {
                 Log.e("Load Cart Items Error", "${e.message}")
@@ -86,7 +86,7 @@ class ProductDetailsViewModel @Inject constructor(
         context: Context,
         newQuantity: Int,
     ) {
-        val freshCartItems = eCommerceRepository.fetchAllCartItems(Constants.USER_NAME)
+        val freshCartItems = eCommerceRepository.fetchAllCartItems()
         val existsItems = freshCartItems.filter { it.name == productDetail.name }
         val existingQuantity = existsItems.sumOf { it.orderQuantity }
         val updatedQuantity = existingQuantity + newQuantity

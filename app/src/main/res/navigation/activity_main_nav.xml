@@ -17,6 +17,9 @@
         <action
             android:id="@+id/toMyCartScreen"
             app:destination="@id/myCartScreen" />
+        <action
+            android:id="@+id/toFavoriteScreen"
+            app:destination="@id/favoriteScreen" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsScreen"
@@ -32,4 +35,9 @@
         android:name="com.berkayuludogan.e_commerceapplication.ui.screens.MyCartScreen"
         android:label="my_cart_screen"
         tools:layout="@layout/my_cart_screen" />
+    <fragment
+        android:id="@+id/favoriteScreen"
+        android:name="com.berkayuludogan.e_commerceapplication.ui.screens.FavoriteScreen"
+        android:label="favorite_screen"
+        tools:layout="@layout/favorite_screen" />
 </navigation>

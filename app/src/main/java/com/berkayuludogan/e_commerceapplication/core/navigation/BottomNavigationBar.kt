@@ -24,7 +24,9 @@ class BottomNavigationBar(
             navigateIfNotCurrent(R.id.myCartScreen)
 
         }
-
+        binding.navFavorite.setOnClickListener {
+            navigateIfNotCurrent(R.id.favoriteScreen)
+        }
     }
 
     private fun navigateIfNotCurrent(destinationId: Int) {
@@ -39,13 +41,17 @@ class BottomNavigationBar(
                 R.id.mainScreen -> {
                     updateBottomBarIcons(R.id.nav_home)
                 }
+
                 R.id.myCartScreen -> {
                     updateBottomBarIcons(R.id.nav_my_cart)
-
                 }
 
                 R.id.productDetailsScreen -> {
                     hideBottomBar()
+                }
+
+                R.id.favoriteScreen -> {
+                    updateBottomBarIcons(R.id.nav_favorite)
                 }
 
                 else -> {
