@@ -90,7 +90,6 @@ class ProductDetailsViewModel @Inject constructor(
         val existsItems = freshCartItems.filter { it.name == productDetail.name }
         val existingQuantity = existsItems.sumOf { it.orderQuantity }
         val updatedQuantity = existingQuantity + newQuantity
-        println(newQuantity)
         viewModelScope.launch(Dispatchers.Main) {
             existsItems.forEach {
                 deleteItemToCart(it.cartId)

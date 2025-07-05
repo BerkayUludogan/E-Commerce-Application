@@ -92,6 +92,7 @@ class BottomNavigationBar(
             .setDuration(200)
             .withEndAction {
                 binding.customBottomBar.visibility = View.INVISIBLE  // GONE değil, INVISIBLE
+                binding.topDivider.visibility = View.INVISIBLE
             }
             .start()
     }
@@ -105,6 +106,7 @@ class BottomNavigationBar(
                 .setDuration(200)
                 .start()
         }
+        binding.topDivider.visibility = View.VISIBLE
     }
 
 }

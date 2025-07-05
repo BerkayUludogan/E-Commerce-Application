@@ -65,10 +65,7 @@ class MainScreen : Fragment() {
                 }
                 return true
             }
-
         })
-
-
         return binding.root
     }
 

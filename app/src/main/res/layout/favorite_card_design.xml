@@ -23,7 +23,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="2dp"
                 android:paddingBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
                 android:id="@+id/imageViewFavorite"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/circle_background"
                 android:clickable="true"
@@ -86,6 +86,14 @@
                 app:layout_constraintBottom_toTopOf="@+id/productName"
                 app:layout_constraintStart_toEndOf="@+id/productImageView" />
 
+            <View
+                android:id="@+id/topDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#D0CECE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

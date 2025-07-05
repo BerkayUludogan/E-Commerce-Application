@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TeknoMode</string>
+    <string name="app_name">TeknoModa</string>
     <string name="projectDetailAddCart">Sepete ekle</string>
     <string name="mainScreenSearch">Ara</string>
     <string name="mainScreenLocation">Konum</string>
@@ -13,4 +13,5 @@
     <string name="snackbar_discard_message">Çıkarmak istiyor musun "%1$s"?</string>
     <string name="snackbar_delete_cart_item_message">Silmek istediğinize emin misiniz? "%1$s"?</string>
     <string name="snackbar_yes">EVET</string>
+    <string name="favorites_header">Favorilerim</string>
 </resources>
