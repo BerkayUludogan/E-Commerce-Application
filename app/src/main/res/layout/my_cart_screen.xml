@@ -32,15 +32,16 @@
 
 
     </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/emptyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Sepetiniz Boş"
+        android:text="@string/cart_empty"
         android:textColor="#888888"
-        android:visibility="gone"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

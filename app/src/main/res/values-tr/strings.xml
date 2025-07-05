@@ -14,4 +14,7 @@
     <string name="snackbar_delete_cart_item_message">Silmek istediğinize emin misiniz? "%1$s"?</string>
     <string name="snackbar_yes">EVET</string>
     <string name="favorites_header">Favorilerim</string>
+    <string name="favorite_empty">Favoriler boş</string>
+    <string name="cart_empty">Sepet boş</string>
+
 </resources>
